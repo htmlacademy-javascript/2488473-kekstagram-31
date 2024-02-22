@@ -8,10 +8,6 @@ const commentMessage = [
     "Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!"
 ];
 
-const usedIdMessage = [];
-const usedIdPhoto = [];
-const usedIdComment = [];
-
 const getRandomInteger = (a, b) => {
     const lower = Math.ceil(Math.min(a, b));
     const upper = Math.floor(Math.max(a, b));
@@ -19,44 +15,39 @@ const getRandomInteger = (a, b) => {
     return Math.floor(result);
   };
 
-const createComment = () => {
-    let id = getRandomInteger(1, 99999);
-    let randomAuthor = getRandomInteger(0, commentAuthors.length - 1);
-    let randomMessage = getRandomInteger(0, commentMessage.length - 1);
+  function getUniqueRandomNumber (a, b) {
+    let usedNumbers = [];
 
-    function comment () {
-        if (id in usedIdComment) {
-            comment();
+    const getRandomNumber = () => {
+        const lower = Math.ceil(Math.min(a, b));
+        const upper = Math.floor(Math.max(a, b));
+        const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
+
+        if (result in usedNumbers) {
+            return getRandomNumber();
         } else {
-            return {
-                id: id, // no-repeat
-                avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-                message: commentMessage[randomMessage],
-                name: commentAuthors[randomAuthor],
-            };
+            usedNumbers.push(result);
+            return result;
         };
     };
-    return comment();
+    return getRandomNumber();
+}
+
+const createComment = () => {
+    return {
+        id: getUniqueRandomNumber(1, 99999), // no-repeat
+        avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+        message: commentMessage[getRandomInteger(0, commentMessage.length - 1)],
+        name: commentAuthors[getRandomInteger(0, commentAuthors.length - 1)],
+    };
 }
 
 function createPost () {
-    let id = getRandomInteger(1, 25);
-    let url = getRandomInteger(1, 25);
-
-    function post () {
-        if ((id in usedIdMessage && url in usedIdPhoto)) {
-            post();
-        } else {
-            usedIdMessage.push(id);
-            usedIdPhoto.push(id);
-            return {
-                id: id,
-                url: `photos/${url}.jpg`, // no-repeat
-                likes: getRandomInteger(15, 200), // 15 to 200
-                description: 'Невероятная фотография! Только посмотрите.',
-                comments: Array.from({length: getRandomInteger(0, 30)}, createComment),
-            };};};
-        return post();
-        }
-
-console.table(createPost().comments)
+    return {
+        id: getUniqueRandomNumber(1, 25),
+        url: 'photos/' + getUniqueRandomNumber(1, 25) + '.jpg', // no-repeat
+        likes: getRandomInteger(15, 200), // 15 to 200
+        description: 'Невероятная фотография! Только посмотрите.',
+        comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
+    };
+};
