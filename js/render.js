@@ -1,9 +1,10 @@
 import {createElements} from './mock-data.js';
 
+const picList = createElements();
+
 const picContainer = document.querySelector('.pictures');
 const picTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const createPictures = () => {
-  const picList = createElements();
   const picListFragment = document.createDocumentFragment();
 
   picList.forEach(({url, likes, description, comments}) => {
@@ -20,4 +21,4 @@ const createPictures = () => {
   picContainer.appendChild(picListFragment);
 };
 
-export {createPictures};
+export {createPictures, picList};
