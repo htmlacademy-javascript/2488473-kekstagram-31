@@ -1,4 +1,3 @@
-const picMini = document.querySelectorAll('.picture');
 const picModal = document.querySelector('.big-picture');
 const commentsModal = document.querySelector('.social__comments');
 
@@ -17,6 +16,7 @@ const onCancelKeyDown = (e) => {
 }
 
 const createModal = (picList) => {
+  const picMini = document.querySelectorAll('.picture');
   for (let [index, item] of picMini.entries()) {
     console.log(index)
     item.addEventListener('click', (evt) => {

@@ -1,6 +1,6 @@
-import { createPictures, picList as picLis } from './render.js';
 import { createModal } from './renderModal.js';
+import { createPictures, picList } from './render.js';
 
-createModal(picLis);
 createPictures();
+createModal(picList);
 
