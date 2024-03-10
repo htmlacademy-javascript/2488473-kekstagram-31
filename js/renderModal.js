@@ -55,7 +55,7 @@ const generateComment = (slicedArray, index) => {
 const sliceComment = (array) => {
   let currentSlice = 0;
   let outputArray = [];
-  for (let i = 1; i <= array.length / 5; i++) {
+  for (let i = 1; i <= Math.ceil(array.length / 5); i++) {
     outputArray.push(array.slice(currentSlice, currentSlice + 5));
     currentSlice += 5;
   }
