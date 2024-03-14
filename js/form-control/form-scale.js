@@ -32,4 +32,9 @@ const loadFormScale = () => {
   scaleBigger.addEventListener('click', removePercentage);
 };
 
-export { loadFormScale };
+const unloadFormScale = () => {
+  scaleSmaller.removeEventListener('click', addPercentage);
+  scaleBigger.removeEventListener('click', removePercentage);
+};
+
+export { loadFormScale, unloadFormScale };
