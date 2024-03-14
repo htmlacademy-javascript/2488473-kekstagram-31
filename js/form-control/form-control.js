@@ -11,23 +11,22 @@ const uploadCancel = document.querySelector('.img-upload__cancel');
 const previewPhoto = document.querySelector('.img-upload__preview > img');
 
 
-const uploadOpen = () => {
+const openUpload = () => {
   uploadOverly.classList.remove('hidden');
   document.body.classList.add('modal-open');
 };
 
-const uploadClose = () => {
+const closeUpload = () => {
   uploadOverly.classList.add('hidden');
   uploadInput.value = '';
   document.body.classList.remove('modal-open');
-  canelRemoveListener();
+  removeCancelListener();
   unloadDepends();
 };
 
 const onKeyDownClose = (evt) => {
   if (isEscape(evt)) {
-    uploadClose();
-    canelRemoveListener();
+    closeUpload();
   }
 };
 
@@ -35,13 +34,13 @@ function unloadDepends () {
   unloadFormScale();
 }
 
-function cancelAddListener () {
-  uploadCancel.addEventListener('click', uploadClose);
+function addCancelListener () {
+  uploadCancel.addEventListener('click', closeUpload);
   uploadCancel.addEventListener('keydown', onKeyDownClose);
 }
 
-function canelRemoveListener () {
-  uploadCancel.removeEventListener('click', uploadClose);
+function removeCancelListener () {
+  uploadCancel.removeEventListener('click', closeUpload);
   uploadCancel.removeEventListener('keydown', onKeyDownClose);
 }
 
@@ -56,11 +55,11 @@ const uploadSetImage = (evt) => {
 
 const onUploadChange = (evt) => {
 
-  uploadOpen();
+  openUpload();
   uploadSetImage(evt);
 
   uploadCancel.focus();
-  cancelAddListener();
+  addCancelListener();
 
   loadFormScale();
 
