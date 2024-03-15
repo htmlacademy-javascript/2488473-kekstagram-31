@@ -1,7 +1,3 @@
-
-import { createPictures } from './render.js';
-
-createPictures();
 const commentAuthors = ["Алексей", "Владислав", "Серегей", "Александр", "Макар"];
 const commentMessage = [
     "Всё отлично!",
@@ -55,3 +51,6 @@ function createPost () {
         comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
     };
 };
+
+const createElements = () => Array.from({length: 25}, createPost);
+export { createElements };
