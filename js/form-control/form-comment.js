@@ -3,10 +3,9 @@ const inputComment = document.querySelector('.text__description');
 
 const checkLength = (evt) => {
   if (evt.target.value.length <= 140) {
-    console.log('ok');
-  } else {
-    console.log('dont ok');
-  };
+    return;
+  }
+  return false;
 };
 
 const loadCommentValidator = () => {
