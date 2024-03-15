@@ -1,9 +1,15 @@
 
+import { createModal } from './render-modal.js';
+
+
 import { createModal } from './renderModal.js';
+
 import { createPictures, picList } from './render.js';
+import { loadFormControl } from './form-control/form-control.js';
 
 createPictures();
 createModal(picList);
+loadFormControl();
 
 import { createPictures } from './render.js';
 
@@ -61,3 +67,4 @@ function createPost () {
         comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
     };
 };
+

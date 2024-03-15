@@ -28,66 +28,65 @@ const onLoaderClick = () => {
   commentCount.text = `${getCountComment()}`;
 }
 
-const getCountComment = () => {
-  return document.querySelectorAll('.social__comment').length;
-}
+const getCountComment = () => document.querySelectorAll('.social__comment').length;
 
 const generateComment = (slicedArray, index) => {
-  for (let comment of slicedArray[index]) {
-    const elemComment = document.createElement("li");
+  for (const comment of slicedArray[index]) {
+    const elemComment = document.createElement('li');
     elemComment.classList.add('social__comment');
-    const imgComment = document.createElement("img");
-    imgComment.classList.add('social__picture')
-    imgComment.src = comment.avatar
-    imgComment.alt = comment.name
-    imgComment.width = '35'
-    imgComment.height = '35'
+    const imgComment = document.createElement('img');
+    imgComment.classList.add('social__picture');
+    imgComment.src = comment.avatar;
+    imgComment.alt = comment.name;
+    imgComment.width = '35';
+    imgComment.height = '35';
     elemComment.appendChild(imgComment);
 
-    const textComment = document.createElement("p");
+    const textComment = document.createElement('p');
     textComment.classList.add('social__text');
-    textComment.textContent = comment.message
+    textComment.textContent = comment.message;
     elemComment.appendChild(textComment);
 
-    commentsModal.appendChild(elemComment);};
+    commentsModal.appendChild(elemComment);
+  }
 };
 
 const sliceComment = (array) => {
   let currentSlice = 0;
-  let outputArray = [];
+  const outputArray = [];
   for (let i = 1; i <= Math.ceil(array.length / 5); i++) {
     outputArray.push(array.slice(currentSlice, currentSlice + 5));
     currentSlice += 5;
   }
   return outputArray;
-}
+};
 
 const createModal = (picList) => {
   globalPicList = picList;
   const picMini = document.querySelectorAll('.picture');
   commentCount.text = `${getCountComment()}`;
   for (let [index, item] of picMini.entries()) {
-    item.addEventListener('click', (evt) => {
-      commentsModal.innerHTML = '';
-      picModal.classList.remove('hidden');
-      modalPic.src = evt.target.src;
-      document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
-      
-      // add comment to Modal
-      const slicedArray = sliceComment(picList[index].comments);
-      generateComment(slicedArray, currentIndex);
-      currentIndex++;
-      commentCount.text = `${getCountComment()}`;
+  item.addEventListener('click', (evt) => {
+    commentsModal.innerHTML = '';
+    picModal.classList.remove('hidden');
+    modalPic.src = evt.target.src;
+    document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
+    
+    // add comment to Modal
+    const slicedArray = sliceComment(picList[index].comments);
+    generateComment(slicedArray, currentIndex);
+    currentIndex++;
+    commentCount.text = `${getCountComment()}`;
 
-      document.body.classList.add('modal-open');  
+    document.body.classList.add('modal-open');  
 
-      globalIndex = index;
-      commentLoader.addEventListener('click', onLoaderClick);
+    globalIndex = index;
+    commentLoader.addEventListener('click', onLoaderClick);
 
-    const picCancel = document.querySelector('#picture-cancel');
-    picCancel.focus();
-    picCancel.addEventListener('click', onCancelClick);
-    picCancel.addEventListener('keydown', onCancelKeyDown);
+  const picCancel = document.querySelector('#picture-cancel');
+  picCancel.focus();
+  picCancel.addEventListener('click', onCancelClick);
+  picCancel.addEventListener('keydown', onCancelKeyDown);
   })};}
 
 export {createModal}
