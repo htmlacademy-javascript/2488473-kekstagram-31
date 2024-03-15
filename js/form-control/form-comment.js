@@ -1,4 +1,11 @@
 
+
+// const inputComment = document.querySelector('.text__description');
+//
+// const loadCommentValidator = () => {
+//   inputComment.addEventListener
+// };
+
 const inputComment = document.querySelector('.text__description');
 
 const checkLength = (evt) => {
@@ -18,3 +25,4 @@ const unloadCommentValidator = () => {
 };
 
 export { loadCommentValidator, unloadCommentValidator };
+
