@@ -1,4 +1,5 @@
 
+
 const toMinute = (time) => {
     return parseInt(time.split(":")[0]) * 60 + parseInt(time.split(":")[1]);
 
@@ -19,4 +20,27 @@ const checkWorkDay = (start, stop, meet, meetTime) => {
     if (!(meetSplitSum + meetTime <= startSplit)) {
         return (!(meetSplitSum + meetTime > stopSplit))
     }; return false;
+};
+
+function checkLength (string, length) {
+    if (string.length <= length) {
+        return true
+    };
+
+    return false;
+};
+
+function checkPolyndrom (string) {
+    let start = string.replaceAll(' ', '').toLowerCase();
+    let stop = '';
+
+    for (let i = start.length - 1; i >= 0; i--) {
+        stop += start[i];
+    };
+
+    if (start !== stop) {
+        return false;
+    };
+
+    return true;
 };
