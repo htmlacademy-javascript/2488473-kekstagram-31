@@ -14,19 +14,15 @@ const onCancelClick = () => {
   currentIndex = 0;
   commentLoader.removeEventListener('click', onLoaderClick);
   picModal.classList.add('hidden');
-}
+};
 
 const onCancelKeyDown = (e) => {
   currentIndex = 0;
-  if (e.code == 'Escape') { picModal.classList.add('hidden'); commentLoader.removeEventListener('click', onLoaderClick);};
-}
-
-const onLoaderClick = () => {
-  const slicedArray = sliceComment(globalPicList[globalIndex].comments);
-  generateComment(slicedArray, currentIndex);
-  currentIndex++;
-  commentCount.text = `${getCountComment()}`;
-}
+  if (e.code === 'Escape') {
+    picModal.classList.add('hidden');
+    commentLoader.removeEventListener('click', onLoaderClick);
+  }
+};
 
 const getCountComment = () => document.querySelectorAll('.social__comment').length;
 
@@ -61,32 +57,41 @@ const sliceComment = (array) => {
   return outputArray;
 };
 
+function onLoaderClick () {
+  const slicedArray = sliceComment(globalPicList[globalIndex].comments);
+  generateComment(slicedArray, currentIndex);
+  currentIndex++;
+  commentCount.text = `${getCountComment()}`;
+}
+
 const createModal = (picList) => {
   globalPicList = picList;
   const picMini = document.querySelectorAll('.picture');
   commentCount.text = `${getCountComment()}`;
-  for (let [index, item] of picMini.entries()) {
-  item.addEventListener('click', (evt) => {
-    commentsModal.innerHTML = '';
-    picModal.classList.remove('hidden');
-    modalPic.src = evt.target.src;
-    document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
-    
-    // add comment to Modal
-    const slicedArray = sliceComment(picList[index].comments);
-    generateComment(slicedArray, currentIndex);
-    currentIndex++;
-    commentCount.text = `${getCountComment()}`;
+  for (const [index, item] of picMini.entries()) {
+    item.addEventListener('click', (evt) => {
+      commentsModal.innerHTML = '';
+      picModal.classList.remove('hidden');
+      modalPic.src = evt.target.src;
+      document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
 
-    document.body.classList.add('modal-open');  
+      // add comment to Modal
+      const slicedArray = sliceComment(picList[index].comments);
+      generateComment(slicedArray, currentIndex);
+      currentIndex++;
+      commentCount.text = `${getCountComment()}`;
 
-    globalIndex = index;
-    commentLoader.addEventListener('click', onLoaderClick);
+      document.body.classList.add('modal-open');
 
-  const picCancel = document.querySelector('#picture-cancel');
-  picCancel.focus();
-  picCancel.addEventListener('click', onCancelClick);
-  picCancel.addEventListener('keydown', onCancelKeyDown);
-  })};}
+      globalIndex = index;
+      commentLoader.addEventListener('click', onLoaderClick);
 
-export {createModal}
+      const picCancel = document.querySelector('#picture-cancel');
+      picCancel.focus();
+      picCancel.addEventListener('click', onCancelClick);
+      picCancel.addEventListener('keydown', onCancelKeyDown);
+    });
+  }
+};
+
+export {createModal};
