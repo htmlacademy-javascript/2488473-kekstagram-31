@@ -1,6 +1,7 @@
 import { isEscape } from '../utils.js';
-import { loadCommentValidator, unloadCommentValidator } from './form-comment.js';
+import { loadCommentValidator } from './form-comment.js';
 import { loadFilter, unloadFilter } from './form-filter.js';
+import { loadHashtagValidator } from './form-hashtag.js';
 import { loadFormScale, unloadFormScale } from './form-scale.js';
 
 
@@ -32,7 +33,6 @@ const onKeyDownClose = (evt) => {
 
 function unloadDepends () {
   unloadFormScale();
-  unloadCommentValidator();
   unloadFilter();
 }
 
@@ -64,6 +64,7 @@ const onUploadChange = (evt) => {
   addCancelListener();
 
   loadCommentValidator();
+  loadHashtagValidator();
   loadFormScale();
   loadFilter();
 

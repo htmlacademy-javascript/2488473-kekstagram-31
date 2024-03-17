@@ -56,6 +56,9 @@ const createSlider = () => {
     range: {'min': 0, 'max': 100}});
 };
 
+const destroySlider = () => {
+  slider.noUiSlider.destroy();
+};
 
 const addEffectPreviewPhoto = (filter, value) => {
   uploadPhoto.style.filter = `${filter}(${value})`;
@@ -122,6 +125,7 @@ const loadFilter = () => {
 const unloadFilter = () => {
 
   removeCardEffectListener();
+  destroySlider();
 
 };
 
