@@ -1,28 +1,13 @@
-
-
-// const inputComment = document.querySelector('.text__description');
-//
-// const loadCommentValidator = () => {
-//   inputComment.addEventListener
-// };
+import { pristineFormOptions } from '../utils.js';
 
 const inputComment = document.querySelector('.text__description');
+const pristine = new Pristine(document.querySelector('.img-upload__form'), pristineFormOptions);
 
-const checkLength = (evt) => {
-  if (evt.target.value.length <= 140) {
-    console.log('ok');
-  } else {
-    console.log('dont ok');
-  };
-};
+const checkLength = (value) => value.length <= 140;
 
 const loadCommentValidator = () => {
-  inputComment.addEventListener('input', checkLength);
+  pristine.reset();
+  pristine.addValidator(inputComment, checkLength, 'Длина комментария больше 140 символов', false);
 };
 
-const unloadCommentValidator = () => {
-  inputComment.removeEventListener('input', checkLength);
-};
-
-export { loadCommentValidator, unloadCommentValidator };
-
+export { loadCommentValidator };
