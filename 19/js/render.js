@@ -15,7 +15,7 @@ const createPictures = (picList) => {
     picItem.querySelector('.picture__likes').textContent = picList[i].likes;
     picItem.querySelector('.picture__comments').textContent = picList[i].comments.length;
     picListFragment.appendChild(picItem);
-  };
+  }
 
   picContainer.appendChild(picListFragment);
 };

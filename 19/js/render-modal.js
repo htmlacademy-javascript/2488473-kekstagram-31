@@ -50,11 +50,11 @@ const generateComment = (slicedArray, index) => {
 
 const hideLoader = () => {
   commentLoader.classList.add('hidden');
-}
+};
 
 const showLoader = () => {
   commentLoader.classList.remove('hidden');
-}
+};
 
 const setCurrentCommentInt = () => {
   commentCount.textContent = document.querySelectorAll('.social__comment').length;
@@ -62,7 +62,7 @@ const setCurrentCommentInt = () => {
 
 const setMaxComment = (integer) => {
   commentCountMax.textContent = integer;
-}
+};
 
 const sliceComment = (array) => {
   let currentSlice = 0;
@@ -84,7 +84,7 @@ function onLoaderClick () {
 
     if (currentIndex === slicedArray.length) {
       hideLoader();
-    };
+    }
   } catch (err) {
     hideLoader();
   }
