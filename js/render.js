@@ -1,24 +1,28 @@
-import {createElements} from './mock-data.js';
+import { getServerData } from './server-action/connect.js';
 
-const picList = createElements();
 
 const picContainer = document.querySelector('.pictures');
 const picTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const createPictures = () => {
-  const picListFragment = document.createDocumentFragment();
 
-  picList.forEach(({url, likes, description, comments}) => {
+const createPictures = (picList) => {
+  const picListFragment = document.createDocumentFragment();
+  for (let i = 0; i <= picList.length - 1; i++) {
     const picItem = picTemplate.cloneNode(true);
     const picImg = picItem.querySelector('.picture__img');
 
-    picImg.src = url;
-    picImg.alt = description;
-    picItem.querySelector('.picture__likes').textContent = likes;
-    picItem.querySelector('.picture__comments').textContent = comments.length;
+    picImg.src = picList[i].url;
+    picImg.alt = picList[i].description;
+    picItem.querySelector('.picture__likes').textContent = picList[i].likes;
+    picItem.querySelector('.picture__comments').textContent = picList[i].comments.length;
     picListFragment.appendChild(picItem);
-  });
+  }
 
   picContainer.appendChild(picListFragment);
 };
 
-export {createPictures, picList};
+
+const loadPicture = () => {
+  getServerData(createPictures);
+};
+
+export { loadPicture };

@@ -2,6 +2,7 @@ const picModal = document.querySelector('.big-picture');
 const commentsModal = document.querySelector('.social__comments');
 
 const commentCount = document.querySelector('.social__comment-shown-count');
+const commentCountMax = document.querySelector('.social__comment-total-count');
 const commentLoader = document.querySelector('.comments-loader');
 
 const modalPic = document.querySelector('.big-picture__img').getElementsByTagName('img')[0];
@@ -47,6 +48,22 @@ const generateComment = (slicedArray, index) => {
   }
 };
 
+const hideLoader = () => {
+  commentLoader.classList.add('hidden');
+};
+
+const showLoader = () => {
+  commentLoader.classList.remove('hidden');
+};
+
+const setCurrentCommentInt = () => {
+  commentCount.textContent = document.querySelectorAll('.social__comment').length;
+};
+
+const setMaxComment = (integer) => {
+  commentCountMax.textContent = integer;
+};
+
 const sliceComment = (array) => {
   let currentSlice = 0;
   const outputArray = [];
@@ -59,9 +76,18 @@ const sliceComment = (array) => {
 
 function onLoaderClick () {
   const slicedArray = sliceComment(globalPicList[globalIndex].comments);
-  generateComment(slicedArray, currentIndex);
-  currentIndex++;
-  commentCount.text = `${getCountComment()}`;
+  try {
+    generateComment(slicedArray, currentIndex);
+    currentIndex++;
+    commentCount.text = `${getCountComment()}`;
+    setCurrentCommentInt();
+
+    if (currentIndex === slicedArray.length) {
+      hideLoader();
+    }
+  } catch (err) {
+    hideLoader();
+  }
 }
 
 const createModal = (picList) => {
@@ -71,11 +97,13 @@ const createModal = (picList) => {
   for (const [index, item] of picMini.entries()) {
     item.addEventListener('click', (evt) => {
       commentsModal.innerHTML = '';
+      showLoader();
       picModal.classList.remove('hidden');
       modalPic.src = evt.target.src;
       document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
+      setCurrentCommentInt();
+      setMaxComment(item.querySelector('.picture__comments').textContent);
 
-      // add comment to Modal
       const slicedArray = sliceComment(picList[index].comments);
       generateComment(slicedArray, currentIndex);
       currentIndex++;
@@ -90,6 +118,7 @@ const createModal = (picList) => {
       picCancel.focus();
       picCancel.addEventListener('click', onCancelClick);
       picCancel.addEventListener('keydown', onCancelKeyDown);
+      setCurrentCommentInt();
     });
   }
 };
