@@ -15,6 +15,7 @@ const onCancelClick = () => {
   currentIndex = 0;
   commentLoader.removeEventListener('click', onLoaderClick);
   picModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
 };
 
 const onCancelKeyDown = (e) => {
@@ -22,6 +23,7 @@ const onCancelKeyDown = (e) => {
   if (e.code === 'Escape') {
     picModal.classList.add('hidden');
     commentLoader.removeEventListener('click', onLoaderClick);
+    document.body.classList.remove('modal-open');
   }
 };
 

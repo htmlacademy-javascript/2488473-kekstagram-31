@@ -129,4 +129,4 @@ const unloadFilter = () => {
 
 };
 
-export { loadFilter, unloadFilter };
+export { loadFilter, unloadFilter, addEffectPreviewPhoto, clearFilter, hiddenSlider };
