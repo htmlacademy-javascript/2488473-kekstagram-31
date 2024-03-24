@@ -37,4 +37,4 @@ const unloadFormScale = () => {
   scaleBigger.removeEventListener('click', removePercentage);
 };
 
-export { loadFormScale, unloadFormScale };
+export { loadFormScale, unloadFormScale, setScaleValue };
