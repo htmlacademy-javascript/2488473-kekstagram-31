@@ -22,8 +22,17 @@ const resetForm = () => {
   previewInput.value = '';
 };
 
+const blockSubmitBtn = () => {
+  submitBtn.disabled = true;
+};
+
+const unblockSubmitBtn = () => {
+  submitBtn.disabled = false;
+};
+
 const onSubmitBtnClick = (evt) => {
   evt.preventDefault();
+  blockSubmitBtn();
 
   const formData = new FormData(document.querySelector('.img-upload__form'));
   fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', body: formData})
@@ -31,8 +40,10 @@ const onSubmitBtnClick = (evt) => {
       if (response.ok) {
         resetForm();
         alertPostSuccess();
+        unblockSubmitBtn();
       } else {
         alertPostError();
+        unblockSubmitBtn();
       }
     });
 };

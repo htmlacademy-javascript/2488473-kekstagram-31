@@ -11,6 +11,7 @@ const uploadOverly = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('.img-upload__cancel');
 
 const previewPhoto = document.querySelector('.img-upload__preview > img');
+const previewEffects = document.querySelectorAll('.effects__preview');
 
 
 const openUpload = () => {
@@ -50,10 +51,17 @@ function removeCancelListener () {
   uploadCancel.removeEventListener('keydown', onKeyDownClose);
 }
 
+const setPreviewEffectsPhoto = (photo) => {
+  for (const item of previewEffects) {
+    item.style.background = `url('${photo}')`;
+  }
+};
+
 const uploadSetImage = (evt) => {
   const reader = new FileReader();
   reader.onload = function () {
     previewPhoto.src = reader.result;
+    setPreviewEffectsPhoto(reader.result);
   };
   reader.readAsDataURL(evt.target.files[0]);
 };
