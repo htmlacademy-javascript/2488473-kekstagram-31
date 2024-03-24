@@ -94,7 +94,7 @@ const setEffect = (evt) => {
     case 'heat':
       addEffectPreviewPhoto('brightness', 0);
       showSlider();
-      updateSliderOptions(0.1, 0.3, 0.01);
+      updateSliderOptions(1, 3, 0.1);
       break;
   }
 };
