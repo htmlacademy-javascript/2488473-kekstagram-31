@@ -8,6 +8,28 @@ const pristineFormOptions = {
   errorTextClass: 'img-upload__field-wrapper--error',
 };
 
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(...rest), timeoutDelay);
+  };
+};
+
+const throttle = (callback, delayBetweenFrames) => {
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+};
+
 const alertLoadError = () => {
   const errorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
   document.body.append(errorTemplate);
@@ -76,4 +98,10 @@ const alertPostError = () => {
   errorCloneInner.addEventListener('click', stopProp);
 };
 
-export { isEscape, pristineFormOptions, alertLoadError, alertPostSuccess, alertPostError};
+const randomInteger = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export { isEscape, pristineFormOptions, alertLoadError, alertPostSuccess, alertPostError, debounce, throttle, randomInteger};

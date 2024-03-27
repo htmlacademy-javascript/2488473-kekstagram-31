@@ -18,6 +18,7 @@ const createPictures = (picList) => {
   }
 
   picContainer.appendChild(picListFragment);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 
@@ -25,4 +26,4 @@ const loadPicture = () => {
   insertServerData(createPictures);
 };
 
-export { loadPicture };
+export { loadPicture, createPictures };

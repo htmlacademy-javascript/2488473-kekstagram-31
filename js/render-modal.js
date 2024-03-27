@@ -125,4 +125,4 @@ const createModal = (picList) => {
   }
 };
 
-export {createModal};
+export { createModal };
