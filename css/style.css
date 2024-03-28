@@ -623,9 +623,9 @@ main {
 
   background-color: #314359;
   background-image: url("../img/upload-default-image.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% auto;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 100% auto !important;
 
   border: solid 5px transparent;
   border-radius: 5px;
