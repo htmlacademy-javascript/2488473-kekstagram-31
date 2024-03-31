@@ -27,15 +27,26 @@ const filterDefualt = (data) => {
 
 const deleteAllPic = () => document.querySelectorAll('.picture').forEach((el) => el.remove());
 
-const callFilter = () => {
+const callFilter = (evt) => {
   deleteAllPic();
-  serverData.then((data) => createPictures(data));
-  serverData.then((data) => createModal(data));
+
+  switch (evt.target.id) {
+    case 'filter-defualt':
+      serverData.then((data) => filterDefualt(data));
+      break;
+    case 'filter-random':
+      serverData.then((data) => filterRandom(data));
+      break;
+    case 'filter-discussed':
+      serverData.then((data) => filterDiscussed(data));
+      break;
+  }
 };
 
 const loadFilterPhotos = () => {
+  const onFilterClick = () => debounce((evt) => callFilter(evt), 500);
   for (const item of filterBtns) {
-    item.addEventListener('click', callFilter);
+    item.addEventListener('click', onFilterClick);
   }
 };
 
