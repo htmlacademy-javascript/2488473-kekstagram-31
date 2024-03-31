@@ -1,6 +1,7 @@
 import { setScaleValue } from './form-scale.js';
 import { addEffectPreviewPhoto, clearFilter, hiddenSlider } from './form-filter.js';
 import { alertPostSuccess, alertPostError } from '../utils.js';
+import { onKeyDownClose } from './form-control.js';
 
 const submitBtn = document.querySelector('.img-upload__submit');
 
@@ -30,23 +31,31 @@ const unblockSubmitBtn = () => {
   submitBtn.disabled = false;
 };
 
+
 const onSubmitBtnClick = (evt) => {
   evt.preventDefault();
-  blockSubmitBtn();
 
-  const formData = new FormData(document.querySelector('.img-upload__form'));
-  fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', body: formData})
-    .then((response) => {
-      if (response.ok) {
-        resetForm();
-        alertPostSuccess();
-        unblockSubmitBtn();
-      } else {
-        alertPostError();
-        unblockSubmitBtn();
-      }
-    });
+  const pristineInputsCheck = document.querySelectorAll('.img-upload__field-wrapper');
+
+  if (!pristineInputsCheck[0].classList.contains('has-danger') && !pristineInputsCheck[1].classList.contains('has-danger')) {
+    const formData = new FormData(document.querySelector('.img-upload__form'));
+    blockSubmitBtn();
+
+    fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', body: formData})
+      .then((response) => {
+        if (response.ok) {
+          resetForm();
+          alertPostSuccess();
+          unblockSubmitBtn();
+        } else {
+          document.removeEventListener('keydown', onKeyDownClose);
+          alertPostError();
+          unblockSubmitBtn();
+        }
+      });
+  }
 };
+
 
 const loadSendBtn = () => {
   submitBtn.addEventListener('click', onSubmitBtnClick);

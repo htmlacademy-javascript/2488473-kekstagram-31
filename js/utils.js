@@ -1,12 +1,6 @@
+import { onKeyDownClose as fcOnKeyDownClose } from './form-control/form-control.js';
 
 const isEscape = (evt) => evt.key === 'Escape';
-
-const pristineFormOptions = {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextTag: 'div',
-  errorTextClass: 'img-upload__field-wrapper--error',
-};
 
 const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
@@ -14,19 +8,6 @@ const debounce = (callback, timeoutDelay = 500) => {
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(...rest), timeoutDelay);
-  };
-};
-
-const throttle = (callback, delayBetweenFrames) => {
-  let lastTime = 0;
-
-  return (...rest) => {
-    const now = new Date();
-
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
   };
 };
 
@@ -49,6 +30,7 @@ const alertPostSuccess = () => {
   function closeSuccess () {
     document.body.removeChild(successClone);
     document.removeEventListener('keydown', onKeyDownClose);
+    document.addEventListener('keydown', fcOnKeyDownClose);
   }
 
   function onKeyDownClose (evt) {
@@ -104,4 +86,4 @@ const randomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-export { isEscape, pristineFormOptions, alertLoadError, alertPostSuccess, alertPostError, debounce, throttle, randomInteger};
+export { isEscape, alertLoadError, alertPostSuccess, alertPostError, debounce, randomInteger};

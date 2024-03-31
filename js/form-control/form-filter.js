@@ -1,3 +1,4 @@
+
 const slider = document.querySelector('.effect-level__slider');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderValue = document.querySelector('.effect-level__value');

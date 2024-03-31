@@ -1,9 +1,8 @@
 import { isEscape } from '../utils.js';
-import { loadCommentValidator, unloadCommentValidator } from './form-comment.js';
 import { loadFilter, unloadFilter } from './form-filter.js';
-import { loadHashtagValidator, unloadHashtagValidator } from './form-hashtag.js';
 import { loadSendBtn, unloadSendBtn } from './form-post.js';
 import { loadFormScale, unloadFormScale } from './form-scale.js';
+import { loadFormValidator, unloadFormValidator } from './form-validate.js';
 
 
 const uploadInput = document.querySelector('.img-upload__input');
@@ -37,18 +36,18 @@ function unloadDepends () {
   unloadFormScale();
   unloadFilter();
   unloadSendBtn();
-  unloadHashtagValidator();
-  unloadCommentValidator();
+  unloadFormValidator();
 }
+
 
 function addCancelListener () {
   uploadCancel.addEventListener('click', closeUpload);
-  uploadCancel.addEventListener('keydown', onKeyDownClose);
+  document.addEventListener('keydown', onKeyDownClose);
 }
 
 function removeCancelListener () {
   uploadCancel.removeEventListener('click', closeUpload);
-  uploadCancel.removeEventListener('keydown', onKeyDownClose);
+  document.removeEventListener('keydown', onKeyDownClose);
 }
 
 const setPreviewEffectsPhoto = (photo) => {
@@ -72,11 +71,9 @@ const onUploadChange = (evt) => {
   openUpload();
   uploadSetImage(evt);
 
-  uploadCancel.focus();
   addCancelListener();
 
-  loadCommentValidator();
-  loadHashtagValidator();
+  loadFormValidator();
   loadFormScale();
   loadFilter();
   loadSendBtn();
@@ -88,4 +85,4 @@ const loadFormControl = () => {
   uploadInput.addEventListener('change', onUploadChange);
 };
 
-export { loadFormControl };
+export { loadFormControl, onKeyDownClose };

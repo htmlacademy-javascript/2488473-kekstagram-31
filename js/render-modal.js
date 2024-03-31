@@ -11,21 +11,20 @@ let currentIndex = 0;
 let globalPicList = {};
 let globalIndex = 0;
 
-const onCancelClick = () => {
-  currentIndex = 0;
-  commentLoader.removeEventListener('click', onLoaderClick);
-  picModal.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-};
 
 const onCancelKeyDown = (e) => {
-  currentIndex = 0;
   if (e.code === 'Escape') {
-    picModal.classList.add('hidden');
-    commentLoader.removeEventListener('click', onLoaderClick);
-    document.body.classList.remove('modal-open');
+    onCancelClick();
   }
 };
+
+function onCancelClick () {
+  currentIndex = 0;
+  commentLoader.removeEventListener('click', onLoaderClick);
+  document.removeEventListener('keydown', onCancelKeyDown);
+  picModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+}
 
 const getCountComment = () => document.querySelectorAll('.social__comment').length;
 
@@ -117,9 +116,9 @@ const createModal = (picList) => {
       commentLoader.addEventListener('click', onLoaderClick);
 
       const picCancel = document.querySelector('#picture-cancel');
-      picCancel.focus();
+
       picCancel.addEventListener('click', onCancelClick);
-      picCancel.addEventListener('keydown', onCancelKeyDown);
+      document.addEventListener('keydown', onCancelKeyDown);
       setCurrentCommentInt();
     });
   }

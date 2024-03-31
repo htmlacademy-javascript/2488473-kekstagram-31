@@ -1,4 +1,4 @@
-import { insertServerData } from './server-action/connect.js';
+import { serverData } from './main.js';
 import { createPictures } from './render.js';
 import { createModal } from './render-modal.js';
 import { debounce, randomInteger } from './utils.js';
@@ -27,38 +27,15 @@ const filterDefualt = (data) => {
 
 const deleteAllPic = () => document.querySelectorAll('.picture').forEach((el) => el.remove());
 
-const callFilter = (cb) => {
+const callFilter = () => {
   deleteAllPic();
-  insertServerData(cb);
-};
-
-const request1 = () => callFilter(filterDefualt);
-const request2 = () => callFilter(filterRandom);
-const request3 = () => callFilter(filterDiscussed);
-
-const caller1 = debounce(request1, 500);
-const caller2 = debounce(request2, 500);
-const caller3 = debounce(request3, 500);
-
-const switchFilter = (evt) => {
-  const filterId = evt.target.id;
-
-  switch (filterId) {
-    case 'filter-default':
-      caller1();
-      break;
-    case 'filter-random':
-      caller2();
-      break;
-    case 'filter-discussed':
-      caller3();
-      break;
-  }
+  serverData.then((data) => createPictures(data));
+  serverData.then((data) => createModal(data));
 };
 
 const loadFilterPhotos = () => {
   for (const item of filterBtns) {
-    item.addEventListener('click', switchFilter);
+    item.addEventListener('click', callFilter);
   }
 };
 
