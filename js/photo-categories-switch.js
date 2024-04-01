@@ -5,8 +5,10 @@ import { debounce, randomInteger } from './utils.js';
 
 const filterBtns = document.querySelectorAll('.img-filters__button');
 
+let currentFilterIndex = 0;
+
 const filterDiscussed = (data) => {
-  const sorted = data.sort((a, b) => b.comments.length - a.comments.length);
+  const sorted = data.slice().sort((a, b) => b.comments.length - a.comments.length);
 
   createPictures(sorted);
   createModal(sorted);
@@ -27,26 +29,35 @@ const filterDefualt = (data) => {
 
 const deleteAllPic = () => document.querySelectorAll('.picture').forEach((el) => el.remove());
 
-const callFilter = (evt) => {
+const setActiveFilter = (nextCurrentFilterIndex) => {
+  filterBtns[currentFilterIndex].classList.remove('img-filters__button--active');
+  currentFilterIndex = nextCurrentFilterIndex;
+  filterBtns[currentFilterIndex].classList.add('img-filters__button--active');
+};
+
+const callFilter = (filterType) => {
   deleteAllPic();
 
-  switch (evt.target.id) {
-    case 'filter-defualt':
+  switch (filterType) {
+    case 'filter-default':
       serverData.then((data) => filterDefualt(data));
+      setActiveFilter(0);
       break;
     case 'filter-random':
       serverData.then((data) => filterRandom(data));
+      setActiveFilter(1);
       break;
     case 'filter-discussed':
       serverData.then((data) => filterDiscussed(data));
+      setActiveFilter(2);
       break;
   }
 };
 
 const loadFilterPhotos = () => {
-  const onFilterClick = () => debounce((evt) => callFilter(evt), 500);
+  const onBtnFilterClick = debounce((evt) => callFilter(evt.target.id), 5);
   for (const item of filterBtns) {
-    item.addEventListener('click', onFilterClick);
+    item.addEventListener('click', onBtnFilterClick);
   }
 };
 
