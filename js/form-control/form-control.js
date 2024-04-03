@@ -12,6 +12,8 @@ const uploadCancel = document.querySelector('.img-upload__cancel');
 const previewPhoto = document.querySelector('.img-upload__preview > img');
 const previewEffects = document.querySelectorAll('.effects__preview');
 
+const previewHashtag = document.querySelector('.text__hashtags');
+const previewComment = document.querySelector('.text__description');
 
 const openUpload = () => {
   uploadOverly.classList.remove('hidden');
@@ -24,6 +26,12 @@ const closeUpload = () => {
   document.body.classList.remove('modal-open');
   removeCancelListener();
   unloadDepends();
+};
+
+const cancelEscInFocus = (evt) => {
+  if (isEscape(evt)) {
+    evt.stopPropagation();
+  }
 };
 
 const onKeyDownClose = (evt) => {
@@ -41,11 +49,15 @@ function unloadDepends () {
 
 
 function addCancelListener () {
+  previewHashtag.addEventListener('keydown', cancelEscInFocus);
+  previewComment.addEventListener('keydown', cancelEscInFocus);
   uploadCancel.addEventListener('click', closeUpload);
   document.addEventListener('keydown', onKeyDownClose);
 }
 
 function removeCancelListener () {
+  previewHashtag.removeEventListener('keydown', cancelEscInFocus);
+  previewComment.removeEventListener('keydown', cancelEscInFocus);
   uploadCancel.removeEventListener('click', closeUpload);
   document.removeEventListener('keydown', onKeyDownClose);
 }

@@ -1,4 +1,7 @@
-const picModal = document.querySelector('.big-picture');
+
+const COMMENTSTEP = 5;
+
+const bigPicModal = document.querySelector('.big-picture');
 const commentsModal = document.querySelector('.social__comments');
 
 const commentCount = document.querySelector('.social__comment-shown-count');
@@ -22,7 +25,7 @@ function onCancelClick () {
   currentIndex = 0;
   commentLoader.removeEventListener('click', onLoaderClick);
   document.removeEventListener('keydown', onCancelKeyDown);
-  picModal.classList.add('hidden');
+  bigPicModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
 
@@ -68,9 +71,9 @@ const setMaxComment = (integer) => {
 const sliceComment = (array) => {
   let currentSlice = 0;
   const outputArray = [];
-  for (let i = 1; i <= Math.ceil(array.length / 5); i++) {
-    outputArray.push(array.slice(currentSlice, currentSlice + 5));
-    currentSlice += 5;
+  for (let i = 1; i <= Math.ceil(array.length / COMMENTSTEP); i++) {
+    outputArray.push(array.slice(currentSlice, currentSlice + COMMENTSTEP));
+    currentSlice += COMMENTSTEP;
   }
   return outputArray;
 };
@@ -99,7 +102,7 @@ const createModal = (picList) => {
     item.addEventListener('click', (evt) => {
       commentsModal.innerHTML = '';
       showLoader();
-      picModal.classList.remove('hidden');
+      bigPicModal.classList.remove('hidden');
       modalPic.src = evt.target.src;
       document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
       setCurrentCommentInt();

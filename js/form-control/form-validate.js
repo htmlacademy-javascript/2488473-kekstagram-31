@@ -1,4 +1,6 @@
 
+const REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
+
 const pristine = new Pristine(document.querySelector('.img-upload__form'), {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
@@ -6,15 +8,13 @@ const pristine = new Pristine(document.querySelector('.img-upload__form'), {
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
-const regexp = /^#[a-zа-яё0-9]{1,19}$/i;
-
 const inputHashtag = document.querySelector('.text__hashtags');
 const inputComment = document.querySelector('.text__description');
 
 const toFormatHashtags = (value) => value.toLowerCase().trim().split(' ');
 
 const checkHashtagsLength = (value) => toFormatHashtags(value).length <= 5;
-const checkEveryHashtag = (value) => toFormatHashtags(value).every((element) => element.startsWith('#') && regexp.test(element) && element !== '#');
+const checkEveryHashtag = (value) => toFormatHashtags(value).every((element) => element.startsWith('#') && REGEXP.test(element) && element !== '#');
 const checkDuplicate = (value) => {
   const formattedHashtags = toFormatHashtags(value);
   return new Set(formattedHashtags).size === formattedHashtags.length;

@@ -1,7 +1,9 @@
 import { serverData } from './main.js';
 import { createPictures } from './render.js';
 import { createModal } from './render-modal.js';
-import { debounce, randomInteger } from './utils.js';
+import { debounce, getRandomInteger } from './utils.js';
+
+const DEBOUNCETIME = 500;
 
 const filterBtns = document.querySelectorAll('.img-filters__button');
 
@@ -15,7 +17,7 @@ const filterDiscussed = (data) => {
 };
 
 const filterRandom = (data) => {
-  const indexStart = randomInteger(0, 15);
+  const indexStart = getRandomInteger(0, 15);
   const sorted = data.slice(indexStart, indexStart + 10);
 
   createPictures(sorted);
@@ -55,7 +57,7 @@ const callFilter = (filterType) => {
 };
 
 const loadFilterPhotos = () => {
-  const onBtnFilterClick = debounce((evt) => callFilter(evt.target.id), 5);
+  const onBtnFilterClick = debounce((evt) => callFilter(evt.target.id), DEBOUNCETIME);
   for (const item of filterBtns) {
     item.addEventListener('click', onBtnFilterClick);
   }
