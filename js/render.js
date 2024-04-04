@@ -1,5 +1,4 @@
-import { getServerData } from './server-action/connect.js';
-
+import { serverData } from './main.js';
 
 const picContainer = document.querySelector('.pictures');
 const picTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -18,11 +17,12 @@ const createPictures = (picList) => {
   }
 
   picContainer.appendChild(picListFragment);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 
 const loadPicture = () => {
-  getServerData(createPictures);
+  serverData.then((data) => createPictures(data));
 };
 
-export { loadPicture };
+export { loadPicture, createPictures };

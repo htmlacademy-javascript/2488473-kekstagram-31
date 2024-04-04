@@ -1,4 +1,7 @@
 
+const SCALESTEP = 25;
+const SCALEMAX = 100;
+
 const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
@@ -12,15 +15,15 @@ const setScaleValue = (value) => {
 };
 
 const addPercentage = () => {
-  if ((getScalePercent() - 0.25 >= 0.25)) {
-    formImg.style.transform = `scale(${getScalePercent() - 0.25})`;
+  if ((getScalePercent() - (SCALESTEP / 100) >= (SCALESTEP / 100))) {
+    formImg.style.transform = `scale(${getScalePercent() - (SCALESTEP / 100)})`;
     setScaleValue(getScalePercent());
   }
 };
 
 const removePercentage = () => {
-  if ((getScalePercent() + 0.25 <= 1)) {
-    formImg.style.transform = `scale(${getScalePercent() + 0.25})`;
+  if ((getScalePercent() + (SCALESTEP / 100) <= (SCALEMAX / 100))) {
+    formImg.style.transform = `scale(${getScalePercent() + (SCALESTEP / 100)})`;
     setScaleValue(getScalePercent());
   }
 };
@@ -37,4 +40,4 @@ const unloadFormScale = () => {
   scaleBigger.removeEventListener('click', removePercentage);
 };
 
-export { loadFormScale, unloadFormScale };
+export { loadFormScale, unloadFormScale, setScaleValue };
