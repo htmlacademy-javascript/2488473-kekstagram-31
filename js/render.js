@@ -17,11 +17,11 @@ const createPictures = (picList) => {
   }
 
   picContainer.appendChild(picListFragment);
-  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 
 const loadPicture = () => {
+  document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
   serverData.then((data) => createPictures(data));
 };
 

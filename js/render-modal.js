@@ -123,6 +123,10 @@ const createModal = (picList) => {
       picCancel.addEventListener('click', onCancelClick);
       document.addEventListener('keydown', onCancelKeyDown);
       setCurrentCommentInt();
+
+      if (picList[index].comments.length <= COMMENTSTEP) {
+        hideLoader();
+      }
     });
   }
 };

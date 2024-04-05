@@ -36,6 +36,7 @@ const loadFormScale = () => {
 };
 
 const unloadFormScale = () => {
+  scaleValue.value = '100%';
   scaleSmaller.removeEventListener('click', addPercentage);
   scaleBigger.removeEventListener('click', removePercentage);
 };

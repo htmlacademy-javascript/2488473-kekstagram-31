@@ -34,7 +34,7 @@ const addListenerSlider = () => {
   slider.noUiSlider.on('update', () => {
     const value = slider.noUiSlider.get();
     const filter = `${getFilter()}`;
-    sliderValue.value = value;
+    sliderValue.value = parseFloat(value);
 
     if (filter === 'blur') {
       uploadPhoto.style.filter = `${getFilter()}(${value}px)`;

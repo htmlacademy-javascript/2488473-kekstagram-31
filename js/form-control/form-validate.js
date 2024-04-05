@@ -11,7 +11,7 @@ const pristine = new Pristine(document.querySelector('.img-upload__form'), {
 const inputHashtag = document.querySelector('.text__hashtags');
 const inputComment = document.querySelector('.text__description');
 
-const toFormatHashtags = (value) => value.toLowerCase().trim().split(' ');
+const toFormatHashtags = (value) => value.toLowerCase().trim().split(' ').filter((el) => el !== '');
 
 const checkHashtagsLength = (value) => toFormatHashtags(value).length <= 5;
 const checkEveryHashtag = (value) => toFormatHashtags(value).every((element) => element.startsWith('#') && REGEXP.test(element) && element !== '#');

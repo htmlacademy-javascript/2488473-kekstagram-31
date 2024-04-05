@@ -37,29 +37,30 @@ const setActiveFilter = (nextCurrentFilterIndex) => {
   filterBtns[currentFilterIndex].classList.add('img-filters__button--active');
 };
 
-const callFilter = (filterType) => {
+const onBtnFilterClick = debounce((cb, param) => cb(param), DEBOUNCETIME);
+
+function callFilter (evt) {
   deleteAllPic();
 
-  switch (filterType) {
+  switch (evt.target.id) {
     case 'filter-default':
-      serverData.then((data) => filterDefualt(data));
       setActiveFilter(0);
+      serverData.then((data) => onBtnFilterClick(filterDefualt, data));
       break;
     case 'filter-random':
-      serverData.then((data) => filterRandom(data));
       setActiveFilter(1);
+      serverData.then((data) => onBtnFilterClick(filterRandom, data));
       break;
     case 'filter-discussed':
-      serverData.then((data) => filterDiscussed(data));
       setActiveFilter(2);
+      serverData.then((data) => onBtnFilterClick(filterDiscussed, data));
       break;
   }
-};
+}
 
 const loadFilterPhotos = () => {
-  const onBtnFilterClick = debounce((evt) => callFilter(evt.target.id), DEBOUNCETIME);
   for (const item of filterBtns) {
-    item.addEventListener('click', onBtnFilterClick);
+    item.addEventListener('click', callFilter);
   }
 };
 

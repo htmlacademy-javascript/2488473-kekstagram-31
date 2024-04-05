@@ -41,7 +41,7 @@ const onSubmitBtnClick = (evt) => {
     const formData = new FormData(document.querySelector('.img-upload__form'));
     blockSubmitBtn();
 
-    fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', body: formData})
+    fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', headers: {'content-type': 'multipart/form-data;'}, body: formData})
       .then((response) => {
         if (response.ok) {
           resetForm();
