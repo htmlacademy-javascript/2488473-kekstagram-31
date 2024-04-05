@@ -1,3 +1,4 @@
+
 const slider = document.querySelector('.effect-level__slider');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderValue = document.querySelector('.effect-level__value');
@@ -94,7 +95,7 @@ const setEffect = (evt) => {
     case 'heat':
       addEffectPreviewPhoto('brightness', 0);
       showSlider();
-      updateSliderOptions(0.1, 0.3, 0.01);
+      updateSliderOptions(1, 3, 0.1);
       break;
   }
 };
@@ -129,4 +130,4 @@ const unloadFilter = () => {
 
 };
 
-export { loadFilter, unloadFilter };
+export { loadFilter, unloadFilter, addEffectPreviewPhoto, clearFilter, hiddenSlider };

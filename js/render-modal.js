@@ -1,4 +1,7 @@
-const picModal = document.querySelector('.big-picture');
+
+const COMMENTSTEP = 5;
+
+const bigPicModal = document.querySelector('.big-picture');
 const commentsModal = document.querySelector('.social__comments');
 
 const commentCount = document.querySelector('.social__comment-shown-count');
@@ -11,19 +14,20 @@ let currentIndex = 0;
 let globalPicList = {};
 let globalIndex = 0;
 
-const onCancelClick = () => {
-  currentIndex = 0;
-  commentLoader.removeEventListener('click', onLoaderClick);
-  picModal.classList.add('hidden');
-};
 
 const onCancelKeyDown = (e) => {
-  currentIndex = 0;
   if (e.code === 'Escape') {
-    picModal.classList.add('hidden');
-    commentLoader.removeEventListener('click', onLoaderClick);
+    onCancelClick();
   }
 };
+
+function onCancelClick () {
+  currentIndex = 0;
+  commentLoader.removeEventListener('click', onLoaderClick);
+  document.removeEventListener('keydown', onCancelKeyDown);
+  bigPicModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+}
 
 const getCountComment = () => document.querySelectorAll('.social__comment').length;
 
@@ -67,9 +71,9 @@ const setMaxComment = (integer) => {
 const sliceComment = (array) => {
   let currentSlice = 0;
   const outputArray = [];
-  for (let i = 1; i <= Math.ceil(array.length / 5); i++) {
-    outputArray.push(array.slice(currentSlice, currentSlice + 5));
-    currentSlice += 5;
+  for (let i = 1; i <= Math.ceil(array.length / COMMENTSTEP); i++) {
+    outputArray.push(array.slice(currentSlice, currentSlice + COMMENTSTEP));
+    currentSlice += COMMENTSTEP;
   }
   return outputArray;
 };
@@ -98,7 +102,7 @@ const createModal = (picList) => {
     item.addEventListener('click', (evt) => {
       commentsModal.innerHTML = '';
       showLoader();
-      picModal.classList.remove('hidden');
+      bigPicModal.classList.remove('hidden');
       modalPic.src = evt.target.src;
       document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
       setCurrentCommentInt();
@@ -115,12 +119,12 @@ const createModal = (picList) => {
       commentLoader.addEventListener('click', onLoaderClick);
 
       const picCancel = document.querySelector('#picture-cancel');
-      picCancel.focus();
+
       picCancel.addEventListener('click', onCancelClick);
-      picCancel.addEventListener('keydown', onCancelKeyDown);
+      document.addEventListener('keydown', onCancelKeyDown);
       setCurrentCommentInt();
     });
   }
 };
 
-export {createModal};
+export { createModal };
