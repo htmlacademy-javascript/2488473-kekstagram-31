@@ -9,6 +9,7 @@ const commentCountMax = document.querySelector('.social__comment-total-count');
 const commentLoader = document.querySelector('.comments-loader');
 
 const modalPic = document.querySelector('.big-picture__img').getElementsByTagName('img')[0];
+const socialCaption = document.querySelector('.social__caption');
 
 let currentIndex = 0;
 let globalPicList = {};
@@ -78,6 +79,15 @@ const sliceComment = (array) => {
   return outputArray;
 };
 
+const setModalPicSrc = (evt) => {
+  const result = evt.target.src.split('/').slice(-2);
+  return `${result[0]}/${result[1]}`;
+};
+
+const setModalCaption = (value) => {
+  socialCaption.textContent = value;
+};
+
 function onLoaderClick () {
   const slicedArray = sliceComment(globalPicList[globalIndex].comments);
   try {
@@ -103,7 +113,8 @@ const createModal = (picList) => {
       commentsModal.innerHTML = '';
       showLoader();
       bigPicModal.classList.remove('hidden');
-      modalPic.src = evt.target.src;
+      modalPic.src = setModalPicSrc(evt);
+      setModalCaption(picList[index].description);
       document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
       setCurrentCommentInt();
       setMaxComment(item.querySelector('.picture__comments').textContent);
@@ -123,6 +134,10 @@ const createModal = (picList) => {
       picCancel.addEventListener('click', onCancelClick);
       document.addEventListener('keydown', onCancelKeyDown);
       setCurrentCommentInt();
+
+      if (picList[index].comments.length <= COMMENTSTEP) {
+        hideLoader();
+      }
     });
   }
 };
