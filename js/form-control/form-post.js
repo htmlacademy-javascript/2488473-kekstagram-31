@@ -23,15 +23,6 @@ const resetForm = () => {
   previewInput.value = '';
 };
 
-const blockSubmitBtn = () => {
-  submitBtn.disabled = true;
-};
-
-const unblockSubmitBtn = () => {
-  submitBtn.disabled = false;
-};
-
-
 const onSubmitBtnClick = (evt) => {
   evt.preventDefault();
 
@@ -39,19 +30,21 @@ const onSubmitBtnClick = (evt) => {
 
   if (!pristineInputsCheck[0].classList.contains('has-danger') && !pristineInputsCheck[1].classList.contains('has-danger')) {
     const formData = new FormData(document.querySelector('.img-upload__form'));
-    blockSubmitBtn();
+    submitBtn.disabled = true;
 
     fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', body: formData})
       .then((response) => {
         if (response.ok) {
+          console.log('close');
           resetForm();
           closeUpload();
           alertPostSuccess();
-          unblockSubmitBtn();
+          submitBtn.disabled = false;
+          console.log('close');
         } else {
           document.removeEventListener('keydown', onKeyDownClose);
           alertPostError();
-          unblockSubmitBtn();
+          submitBtn.disabled = false;
         }
       });
   }

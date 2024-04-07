@@ -29,7 +29,7 @@ const alertPostSuccess = () => {
 
   function closeSuccess () {
     document.body.removeChild(successClone);
-    document.removeEventListener('keydown', fcOnKeyDownClose);
+    document.removeEventListener('keydown', onKeyDownClose);
     document.addEventListener('keydown', closeUpload);
   }
 
