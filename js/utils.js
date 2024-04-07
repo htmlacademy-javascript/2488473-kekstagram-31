@@ -1,4 +1,4 @@
-import { onKeyDownClose as fcOnKeyDownClose } from './form-control/form-control.js';
+import { closeUpload, onKeyDownClose as fcOnKeyDownClose } from './form-control/form-control.js';
 
 const isEscape = (evt) => evt.key === 'Escape';
 
@@ -29,8 +29,8 @@ const alertPostSuccess = () => {
 
   function closeSuccess () {
     document.body.removeChild(successClone);
-    document.removeEventListener('keydown', onKeyDownClose);
-    document.addEventListener('keydown', fcOnKeyDownClose);
+    document.removeEventListener('keydown', fcOnKeyDownClose);
+    document.addEventListener('keydown', closeUpload);
   }
 
   function onKeyDownClose (evt) {
@@ -60,6 +60,7 @@ const alertPostError = () => {
   function closeError () {
     document.body.removeChild(errorClone);
     document.removeEventListener('keydown', onKeyDownClose);
+    document.addEventListener('keydown', closeUpload);
   }
 
   function onKeyDownClose (evt) {

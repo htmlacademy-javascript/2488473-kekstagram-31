@@ -1,7 +1,7 @@
 import { setScaleValue } from './form-scale.js';
 import { addEffectPreviewPhoto, clearFilter, hiddenSlider } from './form-filter.js';
 import { alertPostSuccess, alertPostError } from '../utils.js';
-import { onKeyDownClose } from './form-control.js';
+import { closeUpload, onKeyDownClose } from './form-control.js';
 
 const submitBtn = document.querySelector('.img-upload__submit');
 
@@ -41,10 +41,11 @@ const onSubmitBtnClick = (evt) => {
     const formData = new FormData(document.querySelector('.img-upload__form'));
     blockSubmitBtn();
 
-    fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', headers: {'content-type': 'multipart/form-data;'}, body: formData})
+    fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', body: formData})
       .then((response) => {
         if (response.ok) {
           resetForm();
+          closeUpload();
           alertPostSuccess();
           unblockSubmitBtn();
         } else {

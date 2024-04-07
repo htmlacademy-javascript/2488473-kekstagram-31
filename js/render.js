@@ -21,7 +21,6 @@ const createPictures = (picList) => {
 
 
 const loadPicture = () => {
-  document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
   serverData.then((data) => createPictures(data));
 };
 

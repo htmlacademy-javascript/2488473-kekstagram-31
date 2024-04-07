@@ -24,6 +24,7 @@ const closeUpload = () => {
   uploadOverly.classList.add('hidden');
   uploadInput.value = '';
   document.body.classList.remove('modal-open');
+  document.querySelector('#effect-none').checked = true;
   removeCancelListener();
   unloadDepends();
 };
@@ -97,4 +98,4 @@ const loadFormControl = () => {
   uploadInput.addEventListener('change', onUploadChange);
 };
 
-export { loadFormControl, onKeyDownClose };
+export { loadFormControl, onKeyDownClose, closeUpload };
