@@ -1,4 +1,4 @@
-import { closeUpload, onKeyDownClose as fcOnKeyDownClose } from './form-control/form-control.js';
+import { closeUpload } from './form-control/form-control.js';
 
 const isEscape = (evt) => evt.key === 'Escape';
 

@@ -4,7 +4,7 @@ const picContainer = document.querySelector('.pictures');
 const picTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const createPictures = (picList) => {
-  if (!(typeof picList === 'undefined' || typeof picList === 'null')) {
+  if (!(typeof picList === 'undefined')) {
     const picListFragment = document.createDocumentFragment();
     for (let i = 0; i <= picList.length - 1; i++) {
       const picItem = picTemplate.cloneNode(true);
