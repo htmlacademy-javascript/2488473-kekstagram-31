@@ -35,12 +35,10 @@ const onSubmitBtnClick = (evt) => {
     fetch('https://31.javascript.htmlacademy.pro/kekstagram', {method: 'POST', body: formData})
       .then((response) => {
         if (response.ok) {
-          console.log('close');
           resetForm();
           closeUpload();
           alertPostSuccess();
           submitBtn.disabled = false;
-          console.log('close');
         } else {
           document.removeEventListener('keydown', onKeyDownClose);
           alertPostError();
