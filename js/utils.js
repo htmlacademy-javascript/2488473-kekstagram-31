@@ -1,4 +1,4 @@
-import { closeUpload } from './form-control/form-control.js';
+import { onClickCancel } from './form-control/form-control.js';
 
 const isEscape = (evt) => evt.key === 'Escape';
 
@@ -27,28 +27,28 @@ const alertPostSuccess = () => {
   const successCloneInner = successClone.querySelector('.success__inner');
   document.body.appendChild(successClone);
 
-  function closeSuccess () {
+  function onClickCloseSuccess () {
     document.body.removeChild(successClone);
-    document.removeEventListener('keydown', onKeyDownClose);
-    document.addEventListener('keydown', closeUpload);
+    document.removeEventListener('keydown', onKeydownClose);
+    document.addEventListener('keydown', onClickCancel);
   }
 
-  function onKeyDownClose (evt) {
+  function onKeydownClose (evt) {
     if (isEscape(evt)) {
-      closeSuccess();
+      onClickCloseSuccess();
     }
   }
 
-  const stopProp = (evt) => {
+  const onClickStopProp = (evt) => {
     evt.stopPropagation();
   };
 
   const closeBtn = successClone.querySelector('.success__button');
 
-  document.addEventListener('keydown', onKeyDownClose);
-  closeBtn.addEventListener('click', closeSuccess);
-  successClone.addEventListener('click', closeSuccess);
-  successCloneInner.addEventListener('click', stopProp);
+  document.addEventListener('keydown', onKeydownClose);
+  closeBtn.addEventListener('click', onClickCloseSuccess);
+  successClone.addEventListener('click', onClickCloseSuccess);
+  successCloneInner.addEventListener('click', onClickStopProp);
 };
 
 const alertPostError = () => {
@@ -57,28 +57,28 @@ const alertPostError = () => {
   const errorCloneInner = errorClone.querySelector('.error__inner');
   document.body.appendChild(errorClone);
 
-  function closeError () {
+  function onClickCloseError () {
     document.body.removeChild(errorClone);
-    document.removeEventListener('keydown', onKeyDownClose);
-    document.addEventListener('keydown', closeUpload);
+    document.removeEventListener('keydown', onKeydownClose);
+    document.addEventListener('keydown', onClickCancel);
   }
 
-  function onKeyDownClose (evt) {
+  function onKeydownClose (evt) {
     if (isEscape(evt)) {
-      closeError();
+      onClickCloseError();
     }
   }
 
-  const stopProp = (evt) => {
+  const onClickStopProp = (evt) => {
     evt.stopPropagation();
   };
 
   const closeBtn = errorClone.querySelector('.error__button');
 
-  document.addEventListener('keydown', onKeyDownClose);
-  closeBtn.addEventListener('click', closeError);
-  errorClone.addEventListener('click', closeError);
-  errorCloneInner.addEventListener('click', stopProp);
+  document.addEventListener('keydown', onKeydownClose);
+  closeBtn.addEventListener('click', onClickCloseError);
+  errorClone.addEventListener('click', onClickCloseError);
+  errorCloneInner.addEventListener('click', onClickStopProp);
 };
 
 const getRandomInteger = (min, max) => {

@@ -20,7 +20,7 @@ const openUpload = () => {
   document.body.classList.add('modal-open');
 };
 
-const closeUpload = () => {
+const onClickCancel = () => {
   uploadOverly.classList.add('hidden');
   uploadInput.value = '';
   document.body.classList.remove('modal-open');
@@ -29,15 +29,15 @@ const closeUpload = () => {
   unloadDepends();
 };
 
-const cancelEscInFocus = (evt) => {
+const onKeydownInFocus = (evt) => {
   if (isEscape(evt)) {
     evt.stopPropagation();
   }
 };
 
-const onKeyDownClose = (evt) => {
+const onKeydownClose = (evt) => {
   if (isEscape(evt)) {
-    closeUpload();
+    onClickCancel();
   }
 };
 
@@ -50,17 +50,17 @@ function unloadDepends () {
 
 
 function addCancelListener () {
-  previewHashtag.addEventListener('keydown', cancelEscInFocus);
-  previewComment.addEventListener('keydown', cancelEscInFocus);
-  uploadCancel.addEventListener('click', closeUpload);
-  document.addEventListener('keydown', onKeyDownClose);
+  previewHashtag.addEventListener('keydown', onKeydownInFocus);
+  previewComment.addEventListener('keydown', onKeydownInFocus);
+  uploadCancel.addEventListener('click', onClickCancel);
+  document.addEventListener('keydown', onKeydownClose);
 }
 
 function removeCancelListener () {
-  previewHashtag.removeEventListener('keydown', cancelEscInFocus);
-  previewComment.removeEventListener('keydown', cancelEscInFocus);
-  uploadCancel.removeEventListener('click', closeUpload);
-  document.removeEventListener('keydown', onKeyDownClose);
+  previewHashtag.removeEventListener('keydown', onKeydownInFocus);
+  previewComment.removeEventListener('keydown', onKeydownInFocus);
+  uploadCancel.removeEventListener('click', onClickCancel);
+  document.removeEventListener('keydown', onKeydownClose);
 }
 
 const setPreviewEffectsPhoto = (photo) => {
@@ -79,7 +79,7 @@ const uploadSetImage = (evt) => {
 };
 
 
-const onUploadChange = (evt) => {
+const onChangeUpload = (evt) => {
 
   openUpload();
   uploadSetImage(evt);
@@ -95,7 +95,7 @@ const onUploadChange = (evt) => {
 
 
 const loadFormControl = () => {
-  uploadInput.addEventListener('change', onUploadChange);
+  uploadInput.addEventListener('change', onChangeUpload);
 };
 
-export { loadFormControl, onKeyDownClose, closeUpload };
+export { loadFormControl, onKeydownClose, onClickCancel };

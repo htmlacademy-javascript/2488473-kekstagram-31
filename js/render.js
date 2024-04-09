@@ -1,4 +1,4 @@
-import { serverData } from './main.js';
+import { serverData } from './server-action/connect.js';
 
 const picContainer = document.querySelector('.pictures');
 const picTemplate = document.querySelector('#picture').content.querySelector('.picture');
