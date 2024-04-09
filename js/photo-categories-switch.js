@@ -1,9 +1,9 @@
-import { serverData } from './main.js';
+import { serverData } from './server-action/connect.js';
 import { createPictures } from './render.js';
 import { createModal } from './render-modal.js';
 import { debounce, getRandomInteger } from './utils.js';
 
-const DEBOUNCETIME = 500;
+const DEBOUNCE_TIME = 500;
 
 const filterBtns = document.querySelectorAll('.img-filters__button');
 
@@ -37,9 +37,9 @@ const setActiveFilter = (nextCurrentFilterIndex) => {
   filterBtns[currentFilterIndex].classList.add('img-filters__button--active');
 };
 
-const onBtnFilterClick = debounce((cb, param) => cb(param), DEBOUNCETIME);
+const onBtnFilterClick = debounce((cb, param) => cb(param), DEBOUNCE_TIME);
 
-function callFilter (evt) {
+function onFilterCLick (evt) {
   deleteAllPic();
 
   switch (evt.target.id) {
@@ -60,7 +60,7 @@ function callFilter (evt) {
 
 const loadFilterPhotos = () => {
   for (const item of filterBtns) {
-    item.addEventListener('click', callFilter);
+    item.addEventListener('click', onFilterCLick);
   }
 };
 

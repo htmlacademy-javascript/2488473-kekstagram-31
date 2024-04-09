@@ -1,7 +1,7 @@
 import { setScaleValue } from './form-scale.js';
-import { addEffectPreviewPhoto, clearFilter, hiddenSlider } from './form-filter.js';
+import { addEffectPreviewPhoto, clearFilter, hideSlider } from './form-filter.js';
 import { alertPostSuccess, alertPostError } from '../utils.js';
-import { closeUpload, onKeyDownClose } from './form-control.js';
+import { onClickCancel, onKeydownClose } from './form-control.js';
 
 const submitBtn = document.querySelector('.img-upload__submit');
 
@@ -15,7 +15,7 @@ const resetForm = () => {
   setScaleValue(1);
   addEffectPreviewPhoto('none', '');
   clearFilter();
-  hiddenSlider();
+  hideSlider();
 
   previewImg.style.transform = 'scale(1)';
   previewHashtag.value = '';
@@ -23,7 +23,7 @@ const resetForm = () => {
   previewInput.value = '';
 };
 
-const onSubmitBtnClick = (evt) => {
+const onClickSubmitBtn = (evt) => {
   evt.preventDefault();
 
   const pristineInputsCheck = document.querySelectorAll('.img-upload__field-wrapper');
@@ -36,25 +36,30 @@ const onSubmitBtnClick = (evt) => {
       .then((response) => {
         if (response.ok) {
           resetForm();
-          closeUpload();
+          onClickCancel();
           alertPostSuccess();
           submitBtn.disabled = false;
         } else {
-          document.removeEventListener('keydown', onKeyDownClose);
+          document.removeEventListener('keydown', onKeydownClose);
           alertPostError();
           submitBtn.disabled = false;
         }
+      })
+      .catch(() => {
+        document.removeEventListener('keydown', onKeydownClose);
+        alertPostError();
+        submitBtn.disabled = false;
       });
   }
 };
 
 
 const loadSendBtn = () => {
-  submitBtn.addEventListener('click', onSubmitBtnClick);
+  submitBtn.addEventListener('click', onClickSubmitBtn);
 };
 
 const unloadSendBtn = () => {
-  submitBtn.removeEventListener('click', onSubmitBtnClick);
+  submitBtn.removeEventListener('click', onClickSubmitBtn);
 };
 
 export { loadSendBtn, unloadSendBtn };

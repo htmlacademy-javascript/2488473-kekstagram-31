@@ -13,4 +13,6 @@ const getServerData = () => fetch('https://31.javascript.htmlacademy.pro/kekstag
     alertLoadError();
   });
 
-export { getServerData };
+const serverData = getServerData();
+
+export { serverData };

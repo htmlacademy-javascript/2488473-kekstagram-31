@@ -29,7 +29,7 @@ const checkCommentLength = (value) => value.length <= 140;
 pristine.addValidator(inputComment, checkCommentLength, 'Длина комментария больше 140 символов', false);
 
 
-const checkEmptyValue = (evt) => {
+const onInputEmptyCheck = (evt) => {
   if (evt.target.value === '') {
     pristine.reset();
   }
@@ -37,15 +37,15 @@ const checkEmptyValue = (evt) => {
 
 const loadFormValidator = () => {
 
-  inputHashtag.addEventListener('input', checkEmptyValue);
-  inputComment.addEventListener('input', checkEmptyValue);
+  inputHashtag.addEventListener('input', onInputEmptyCheck);
+  inputComment.addEventListener('input', onInputEmptyCheck);
 
 };
 
 const unloadFormValidator = () => {
 
-  inputHashtag.removeEventListener('input', checkEmptyValue);
-  inputComment.removeEventListener('input', checkEmptyValue);
+  inputHashtag.removeEventListener('input', onInputEmptyCheck);
+  inputComment.removeEventListener('input', onInputEmptyCheck);
 
   inputHashtag.value = '';
   inputComment.value = '';

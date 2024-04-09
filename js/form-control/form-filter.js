@@ -20,7 +20,7 @@ const getFilter = () => {
   return filter;
 };
 
-const hiddenSlider = () => {
+const hideSlider = () => {
   slider.classList.add('hidden');
   sliderContainer.classList.add('hidden');
 };
@@ -65,12 +65,12 @@ const addEffectPreviewPhoto = (filter, value) => {
   uploadPhoto.style.filter = `${filter}(${value})`;
 };
 
-const setEffect = (evt) => {
+const onClickEffect = (evt) => {
   switch (evt.target.value) {
     case 'none':
       addEffectPreviewPhoto('none', '');
       clearFilter();
-      hiddenSlider();
+      hideSlider();
       break;
     case 'chrome':
       addEffectPreviewPhoto('grayscale', 0);
@@ -103,13 +103,13 @@ const setEffect = (evt) => {
 
 const addCardEffectListener = () => {
   for (const item of effectCard) {
-    item.addEventListener('click', setEffect);
+    item.addEventListener('click', onClickEffect);
   }
 };
 
 const removeCardEffectListener = () => {
   for (const item of effectCard) {
-    item.removeEventListener('click', setEffect);
+    item.removeEventListener('click', onClickEffect);
   }
 };
 
@@ -117,7 +117,7 @@ const loadFilter = () => {
 
   createSlider();
   addListenerSlider();
-  hiddenSlider();
+  hideSlider();
 
   addCardEffectListener();
   clearFilter();
@@ -130,4 +130,4 @@ const unloadFilter = () => {
 
 };
 
-export { loadFilter, unloadFilter, addEffectPreviewPhoto, clearFilter, hiddenSlider };
+export { loadFilter, unloadFilter, addEffectPreviewPhoto, clearFilter, hideSlider };

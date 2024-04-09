@@ -14,14 +14,14 @@ const setScaleValue = (value) => {
   scaleValue.value = `${(value * 100)}%`;
 };
 
-const addPercentage = () => {
+const onClickAddPercentage = () => {
   if ((getScalePercent() - (SCALESTEP / 100) >= (SCALESTEP / 100))) {
     formImg.style.transform = `scale(${getScalePercent() - (SCALESTEP / 100)})`;
     setScaleValue(getScalePercent());
   }
 };
 
-const removePercentage = () => {
+const onClickRemovePercentage = () => {
   if ((getScalePercent() + (SCALESTEP / 100) <= (SCALEMAX / 100))) {
     formImg.style.transform = `scale(${getScalePercent() + (SCALESTEP / 100)})`;
     setScaleValue(getScalePercent());
@@ -31,14 +31,14 @@ const removePercentage = () => {
 const loadFormScale = () => {
   formImg.style.transform = 'scale(1)';
 
-  scaleSmaller.addEventListener('click', addPercentage);
-  scaleBigger.addEventListener('click', removePercentage);
+  scaleSmaller.addEventListener('click', onClickAddPercentage);
+  scaleBigger.addEventListener('click', onClickRemovePercentage);
 };
 
 const unloadFormScale = () => {
   scaleValue.value = '100%';
-  scaleSmaller.removeEventListener('click', addPercentage);
-  scaleBigger.removeEventListener('click', removePercentage);
+  scaleSmaller.removeEventListener('click', onClickAddPercentage);
+  scaleBigger.removeEventListener('click', onClickRemovePercentage);
 };
 
 export { loadFormScale, unloadFormScale, setScaleValue };

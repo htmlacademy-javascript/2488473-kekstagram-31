@@ -1,5 +1,5 @@
 
-const COMMENTSTEP = 5;
+const COMMENT_STEP = 5;
 
 const bigPicModal = document.querySelector('.big-picture');
 const commentsModal = document.querySelector('.social__comments');
@@ -16,16 +16,16 @@ let globalPicList = {};
 let globalIndex = 0;
 
 
-const onCancelKeyDown = (e) => {
+const onKeydownCancel = (e) => {
   if (e.code === 'Escape') {
-    onCancelClick();
+    onClickCancel();
   }
 };
 
-function onCancelClick () {
+function onClickCancel () {
   currentIndex = 0;
-  commentLoader.removeEventListener('click', onLoaderClick);
-  document.removeEventListener('keydown', onCancelKeyDown);
+  commentLoader.removeEventListener('click', onClickLoader);
+  document.removeEventListener('keydown', onKeydownCancel);
   bigPicModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
@@ -72,9 +72,9 @@ const setMaxComment = (integer) => {
 const sliceComment = (array) => {
   let currentSlice = 0;
   const outputArray = [];
-  for (let i = 1; i <= Math.ceil(array.length / COMMENTSTEP); i++) {
-    outputArray.push(array.slice(currentSlice, currentSlice + COMMENTSTEP));
-    currentSlice += COMMENTSTEP;
+  for (let i = 1; i <= Math.ceil(array.length / COMMENT_STEP); i++) {
+    outputArray.push(array.slice(currentSlice, currentSlice + COMMENT_STEP));
+    currentSlice += COMMENT_STEP;
   }
   return outputArray;
 };
@@ -88,7 +88,7 @@ const setModalCaption = (value) => {
   socialCaption.textContent = value;
 };
 
-function onLoaderClick () {
+function onClickLoader () {
   const slicedArray = sliceComment(globalPicList[globalIndex].comments);
   try {
     generateComment(slicedArray, currentIndex);
@@ -127,15 +127,15 @@ const createModal = (picList) => {
       document.body.classList.add('modal-open');
 
       globalIndex = index;
-      commentLoader.addEventListener('click', onLoaderClick);
+      commentLoader.addEventListener('click', onClickLoader);
 
       const picCancel = document.querySelector('#picture-cancel');
 
-      picCancel.addEventListener('click', onCancelClick);
-      document.addEventListener('keydown', onCancelKeyDown);
+      picCancel.addEventListener('click', onClickCancel);
+      document.addEventListener('keydown', onKeydownCancel);
       setCurrentCommentInt();
 
-      if (picList[index].comments.length <= COMMENTSTEP) {
+      if (picList[index].comments.length <= COMMENT_STEP) {
         hideLoader();
       }
     });
