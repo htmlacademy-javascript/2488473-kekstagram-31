@@ -1,4 +1,3 @@
-import { serverData } from './server-action/connect.js';
 
 const picContainer = document.querySelector('.pictures');
 const picTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -22,8 +21,8 @@ const createPictures = (picList) => {
 };
 
 
-const loadPicture = () => {
-  serverData.then((data) => createPictures(data));
+const loadPicture = (data) => {
+  createPictures(data);
 };
 
 export { loadPicture, createPictures };
