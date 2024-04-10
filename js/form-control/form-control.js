@@ -93,7 +93,6 @@ const onChangeUpload = (evt) => {
 
 };
 
-
 const loadFormControl = () => {
   uploadInput.addEventListener('change', onChangeUpload);
 };

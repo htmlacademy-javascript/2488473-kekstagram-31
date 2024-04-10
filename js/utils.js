@@ -13,10 +13,11 @@ const debounce = (callback, timeoutDelay = 500) => {
 
 const alertLoadError = () => {
   const errorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
-  document.body.append(errorTemplate);
+  const errorFragment = errorTemplate.cloneNode(true);
+  document.body.append(errorFragment);
 
   setTimeout(() => {
-    errorTemplate.remove();
+    errorFragment.remove();
   },
   5000);
 };
