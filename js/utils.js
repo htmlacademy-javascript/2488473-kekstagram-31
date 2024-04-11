@@ -1,4 +1,4 @@
-import { onClickCancel } from './form-control/form-control.js';
+import { onKeydownClose as fcKeydownClose } from './form-control/form-control.js';
 
 const isEscape = (evt) => evt.key === 'Escape';
 
@@ -31,7 +31,6 @@ const alertPostSuccess = () => {
   function onClickCloseSuccess () {
     document.body.removeChild(successClone);
     document.removeEventListener('keydown', onKeydownClose);
-    document.addEventListener('keydown', onClickCancel);
   }
 
   function onKeydownClose (evt) {
@@ -61,7 +60,7 @@ const alertPostError = () => {
   function onClickCloseError () {
     document.body.removeChild(errorClone);
     document.removeEventListener('keydown', onKeydownClose);
-    document.addEventListener('keydown', onClickCancel);
+    document.addEventListener('keydown', fcKeydownClose);
   }
 
   function onKeydownClose (evt) {

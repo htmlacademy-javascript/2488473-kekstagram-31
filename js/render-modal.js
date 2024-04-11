@@ -104,7 +104,7 @@ function onClickLoader () {
   }
 }
 
-const createModal = (picList) => {
+const loadModalListener = (picList) => {
   globalPicList = picList;
   const picMini = document.querySelectorAll('.picture');
   commentCount.text = `${getCountComment()}`;
@@ -142,4 +142,4 @@ const createModal = (picList) => {
   }
 };
 
-export { createModal };
+export { loadModalListener };

@@ -6,7 +6,6 @@ const getServerData = () =>
       if (!response.ok) {
         alertLoadError();
       }
-      document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
       return response.json();
     })
     .catch(() => {
