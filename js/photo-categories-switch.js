@@ -1,6 +1,6 @@
 import { createPictures } from './render.js';
 import { loadModalListener } from './render-modal.js';
-import { debounce, getRandomInteger } from './utils.js';
+import { createDebounce, getRandomInteger } from './utils.js';
 
 const DEBOUNCE_TIME = 500;
 
@@ -37,7 +37,7 @@ const setActiveFilter = (nextCurrentFilterIndex) => {
   filterBtns[currentFilterIndex].classList.add('img-filters__button--active');
 };
 
-const onBtnFilterClick = debounce((cb, param) => cb(param), DEBOUNCE_TIME);
+const onBtnFilterClick = createDebounce((cb, param) => cb(param), DEBOUNCE_TIME);
 
 
 const loadFilterPhotos = (data) => {
