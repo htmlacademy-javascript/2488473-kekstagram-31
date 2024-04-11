@@ -11,12 +11,12 @@ const pristine = new Pristine(document.querySelector('.img-upload__form'), {
 const inputHashtag = document.querySelector('.text__hashtags');
 const inputComment = document.querySelector('.text__description');
 
-const toFormatHashtags = (value) => value.toLowerCase().trim().split(' ').filter((el) => el !== '');
+const makeFormatHashtags = (value) => value.toLowerCase().trim().split(' ').filter((el) => el !== '');
 
-const checkHashtagsLength = (value) => toFormatHashtags(value).length <= 5;
-const checkEveryHashtag = (value) => toFormatHashtags(value).every((element) => element.startsWith('#') && REGEXP.test(element) && element !== '#');
+const checkHashtagsLength = (value) => makeFormatHashtags(value).length <= 5;
+const checkEveryHashtag = (value) => makeFormatHashtags(value).every((element) => element.startsWith('#') && REGEXP.test(element) && element !== '#');
 const checkDuplicate = (value) => {
-  const formattedHashtags = toFormatHashtags(value);
+  const formattedHashtags = makeFormatHashtags(value);
   return new Set(formattedHashtags).size === formattedHashtags.length;
 };
 

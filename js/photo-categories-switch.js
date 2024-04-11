@@ -1,6 +1,6 @@
 import { createPictures } from './render.js';
-import { createModal } from './render-modal.js';
-import { debounce, getRandomInteger } from './utils.js';
+import { loadModalListener } from './render-modal.js';
+import { createDebounce, getRandomInteger } from './utils.js';
 
 const DEBOUNCE_TIME = 500;
 
@@ -13,7 +13,7 @@ const sortFilterDiscussed = (data) => {
   const sorted = data.slice().sort((a, b) => b.comments.length - a.comments.length);
 
   createPictures(sorted);
-  createModal(sorted);
+  loadModalListener(sorted);
 };
 
 const sortFilterRandom = (data) => {
@@ -21,12 +21,12 @@ const sortFilterRandom = (data) => {
   const sorted = data.slice(indexStart, indexStart + 10);
 
   createPictures(sorted);
-  createModal(sorted);
+  loadModalListener(sorted);
 };
 
 const sortFilterDefualt = (data) => {
   createPictures(data);
-  createModal(data);
+  loadModalListener(data);
 };
 
 const deleteAllPic = () => document.querySelectorAll('.picture').forEach((el) => el.remove());
@@ -37,7 +37,7 @@ const setActiveFilter = (nextCurrentFilterIndex) => {
   filterBtns[currentFilterIndex].classList.add('img-filters__button--active');
 };
 
-const onBtnFilterClick = debounce((cb, param) => cb(param), DEBOUNCE_TIME);
+const onBtnFilterClick = createDebounce((cb, param) => cb(param), DEBOUNCE_TIME);
 
 
 const loadFilterPhotos = (data) => {

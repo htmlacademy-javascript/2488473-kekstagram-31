@@ -1,15 +1,15 @@
 
 const COMMENT_STEP = 5;
 
-const bigPicModal = document.querySelector('.big-picture');
-const commentsModal = document.querySelector('.social__comments');
+const modal = document.querySelector('.big-picture');
 
+const commentBlock = document.querySelector('.social__comments');
 const commentCount = document.querySelector('.social__comment-shown-count');
-const commentCountMax = document.querySelector('.social__comment-total-count');
+const commentLimit = document.querySelector('.social__comment-total-count');
 const commentLoader = document.querySelector('.comments-loader');
 
 const modalPic = document.querySelector('.big-picture__img').getElementsByTagName('img')[0];
-const socialCaption = document.querySelector('.social__caption');
+const modalCaption = document.querySelector('.social__caption');
 
 let currentIndex = 0;
 let globalPicList = {};
@@ -26,7 +26,7 @@ function onClickCancel () {
   currentIndex = 0;
   commentLoader.removeEventListener('click', onClickLoader);
   document.removeEventListener('keydown', onKeydownCancel);
-  bigPicModal.classList.add('hidden');
+  modal.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
 
@@ -49,7 +49,7 @@ const generateComment = (slicedArray, index) => {
     textComment.textContent = comment.message;
     elemComment.appendChild(textComment);
 
-    commentsModal.appendChild(elemComment);
+    commentBlock.appendChild(elemComment);
   }
 };
 
@@ -66,17 +66,17 @@ const setCurrentCommentInt = () => {
 };
 
 const setMaxComment = (integer) => {
-  commentCountMax.textContent = integer;
+  commentLimit.textContent = integer;
 };
 
 const sliceComment = (array) => {
   let currentSlice = 0;
-  const outputArray = [];
+  const comments = [];
   for (let i = 1; i <= Math.ceil(array.length / COMMENT_STEP); i++) {
-    outputArray.push(array.slice(currentSlice, currentSlice + COMMENT_STEP));
+    comments.push(array.slice(currentSlice, currentSlice + COMMENT_STEP));
     currentSlice += COMMENT_STEP;
   }
-  return outputArray;
+  return comments;
 };
 
 const setModalPicSrc = (evt) => {
@@ -85,7 +85,7 @@ const setModalPicSrc = (evt) => {
 };
 
 const setModalCaption = (value) => {
-  socialCaption.textContent = value;
+  modalCaption.textContent = value;
 };
 
 function onClickLoader () {
@@ -104,15 +104,15 @@ function onClickLoader () {
   }
 }
 
-const createModal = (picList) => {
+const loadModalListener = (picList) => {
   globalPicList = picList;
   const picMini = document.querySelectorAll('.picture');
   commentCount.text = `${getCountComment()}`;
   for (const [index, item] of picMini.entries()) {
     item.addEventListener('click', (evt) => {
-      commentsModal.innerHTML = '';
+      commentBlock.innerHTML = '';
       showLoader();
-      bigPicModal.classList.remove('hidden');
+      modal.classList.remove('hidden');
       modalPic.src = setModalPicSrc(evt);
       setModalCaption(picList[index].description);
       document.querySelector('.likes-count').textContent = item.querySelector('.picture__likes').textContent;
@@ -142,4 +142,4 @@ const createModal = (picList) => {
   }
 };
 
-export { createModal };
+export { loadModalListener };

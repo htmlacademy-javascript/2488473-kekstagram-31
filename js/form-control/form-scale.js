@@ -1,6 +1,7 @@
 
 const SCALESTEP = 25;
 const SCALEMAX = 100;
+const DIVISIONNUMBER = 100;
 
 const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
@@ -15,15 +16,15 @@ const setScaleValue = (value) => {
 };
 
 const onClickAddPercentage = () => {
-  if ((getScalePercent() - (SCALESTEP / 100) >= (SCALESTEP / 100))) {
-    formImg.style.transform = `scale(${getScalePercent() - (SCALESTEP / 100)})`;
+  if ((getScalePercent() - (SCALESTEP / DIVISIONNUMBER) >= (SCALESTEP / DIVISIONNUMBER))) {
+    formImg.style.transform = `scale(${getScalePercent() - (SCALESTEP / DIVISIONNUMBER)})`;
     setScaleValue(getScalePercent());
   }
 };
 
 const onClickRemovePercentage = () => {
-  if ((getScalePercent() + (SCALESTEP / 100) <= (SCALEMAX / 100))) {
-    formImg.style.transform = `scale(${getScalePercent() + (SCALESTEP / 100)})`;
+  if ((getScalePercent() + (SCALESTEP / DIVISIONNUMBER) <= (SCALEMAX / DIVISIONNUMBER))) {
+    formImg.style.transform = `scale(${getScalePercent() + (SCALESTEP / DIVISIONNUMBER)})`;
     setScaleValue(getScalePercent());
   }
 };
