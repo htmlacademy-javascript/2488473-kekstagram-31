@@ -12,4 +12,5 @@ getServerData().then((data) => {
   loadFilterPhotos(data);
   loadFormControl();
   loadModalListener(data);
+
 });
